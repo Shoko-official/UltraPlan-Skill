@@ -1,8 +1,31 @@
-﻿# Changelog
+# Changelog
 
 All notable changes to UltraPlan-Skill are documented here.
 
+## [1.1.0] - 2026-07-04
+
+### Added
+
+**Runtime adapters** (five isolated variants - zero cross-contamination)
+- `adapters/antigravity/` - bootstrap `--profile none`, private artifacts `.ultraplan/` only
+- `adapters/claude-code/` - bootstrap `--profile claude`, private artifacts `.ultraplan/` + `.claude/agents/ultraplan-*.md`
+- `adapters/codex/` - bootstrap `--profile codex`, private artifacts `.ultraplan/` + `.codex/ultraplan/` + optional root `AGENTS.md`
+- `adapters/cursor/ultraplan.mdc` - Cursor MDC format, `alwaysApply: true`, no bootstrap
+- `adapters/windsurf/ultraplan.md` - Windsurf rules format, no bootstrap
+- `source:` field in every adapter frontmatter linking back to this repo
+
+**Distribution**
+- `install.py` - cross-platform Python installer (stdlib only, no pip, no execution policy)
+- `install.ps1` rewritten - thin wrapper around `install.py`, no `irm | iex`
+- `install.sh` rewritten - thin wrapper around `install.py`, no `curl | bash`
+- `PROMPTS.md` - one self-install prompt per runtime (Antigravity, Claude Code, Codex, Cursor, Windsurf, Universal)
+- Per-runtime GitHub releases: `v1.1.0-antigravity`, `v1.1.0-claude-code`, `v1.1.0-codex`, `v1.1.0-cursor`, `v1.1.0-windsurf`
+- README install section rewritten: 4 options, all 5 runtimes covered
+
+---
+
 ## [1.0.0] - 2026-07-04
+
 
 Initial public release.
 
