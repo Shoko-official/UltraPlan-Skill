@@ -1,0 +1,9 @@
+﻿# Normalize line endings to LF on checkout for all text files
+* text=auto eol=lf
+
+# Force binary treatment for these extensions
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary
