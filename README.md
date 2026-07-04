@@ -1,8 +1,8 @@
-﻿# UltraPlan Skill
+# UltraPlan Skill
 
 **Autonomous project operating system for complex engineering work.**
 
-UltraPlan converts vague goals into a structured, dependency-aware execution system: issues -> milestones -> branches -> MR/PR -> ship. It works as a skill for AI coding agents -- Claude Code, OpenAI Codex, and Antigravity -- giving them a principled operating model for long-running, high-stakes engineering work.
+UltraPlan converts vague goals into a structured, dependency-aware execution system: issues -> milestones -> branches -> MR/PR -> ship. It works as a skill or rule for AI coding agents - Claude Code, OpenAI Codex, Antigravity, Cursor, and Windsurf - giving them a principled operating model for long-running, high-stakes engineering work.
 
 ---
 
@@ -22,68 +22,79 @@ UltraPlan gives your AI agent a **principal-level engineering mindset**, not jus
 
 ## Compatibility
 
-| Runtime | Supported | Notes |
-|---------|-----------|-------|
-| [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) | Yes | Full support -- subagents, hooks, project skills |
-| [OpenAI Codex](https://platform.openai.com/docs/guides/codex) | Yes | Via `agents/openai.yaml` spec |
-| [Antigravity](https://deepmind.google/technologies/antigravity/) | Yes | Loaded automatically from `~/.gemini/config/skills/` |
-| Other agents | Partial | Use `SKILL.md` directly as a system-prompt extension |
+| Runtime | Supported | Adapter |
+|---------|-----------|--------|
+| [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) | ✅ Full | `adapters/claude-code/` - subagents, project skills |
+| [OpenAI Codex](https://platform.openai.com/docs/guides/codex) | ✅ Full | `adapters/codex/` - AGENTS.md instruction artifacts |
+| [Antigravity](https://deepmind.google/technologies/antigravity/) | ✅ Full | `adapters/antigravity/` - auto-loaded from skills path |
+| [Cursor](https://cursor.com) | ✅ Full | `adapters/cursor/ultraplan.mdc` - MDC project rule |
+| [Windsurf](https://windsurf.com) | ✅ Full | `adapters/windsurf/ultraplan.md` - Cascade project rule |
 
 ---
 
 ## Skill structure
 
+Each runtime has its own isolated adapter under `adapters/`:
+
 ```
-ultraplan-engineering/
-+-- SKILL.md                          # Main skill definition (frontmatter + instructions)
-+-- agents/
-|   +-- openai.yaml                   # OpenAI Codex agent spec
-+-- references/
-|   +-- grill-me.md                   # Intake questionnaire and assumptions lock
-|   +-- operating-model.md            # Full issue -> milestone -> MR/PR workflow
-|   +-- subagents-and-automations.md  # Subagent design and automation policy
-|   +-- templates.md                  # Plan, issue, worklog, MR/PR, ADR templates
-+-- scripts/
-    +-- bootstrap_ultraplan.py        # Bootstraps private local scaffolding in a git repo
+adapters/
++-- antigravity/      SKILL.md + references/ + scripts/
++-- claude-code/      SKILL.md + references/ + scripts/
++-- codex/            SKILL.md + AGENTS.md + references/ + scripts/
++-- cursor/           ultraplan.mdc + INSTALL.md
++-- windsurf/         ultraplan.md + INSTALL.md
+
+ultraplan-engineering/   (canonical source, Antigravity-compatible)
 ```
+
+Every adapter's `SKILL.md` frontmatter includes `source: https://github.com/Shoko-official/UltraPlan-Skill` so the repo stays traceable wherever the skill is distributed.
 
 ---
 
 ## Installation
 
-### One command (recommended)
+### Option 1 - Python installer (recommended, no security warnings)
 
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/Shoko-official/UltraPlan-Skill/main/install.ps1 | iex
-```
+Requires Python 3.8+ and git. No pip, no execution policy.
 
-**macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Shoko-official/UltraPlan-Skill/main/install.sh | bash
+git clone https://github.com/Shoko-official/UltraPlan-Skill.git
+python UltraPlan-Skill/install.py
 ```
 
-Both scripts detect which runtimes are present and install to the correct paths. Use `--dry-run` to preview without copying.
+`install.py` auto-detects which runtimes are installed and copies the right adapter to each. Use `--dry-run` to preview first:
 
-### Manual installation
-
-Clone or download this repo, then copy the `ultraplan-engineering/` directory to your runtime's skills directory:
-
-| Runtime | Target path |
-|---------|-------------|
-| Claude Code | `~/.claude/skills/ultraplan-engineering/` |
-| Antigravity | `~/.gemini/config/skills/ultraplan-engineering/` |
-| Codex | `~/.codex/skills/ultraplan-engineering/` |
-
-**Windows (Claude Code):**
-```powershell
-Copy-Item -Recurse .\ultraplan-engineering\ "$env:USERPROFILE\.claude\skills\ultraplan-engineering\"
-```
-
-**macOS / Linux (Antigravity):**
 ```bash
-cp -r ./ultraplan-engineering/ ~/.gemini/config/skills/ultraplan-engineering/
+python UltraPlan-Skill/install.py --dry-run
+python UltraPlan-Skill/install.py --runtime claude-code,cursor
 ```
+
+### Option 2 - Per-runtime GitHub release (download zip)
+
+Each runtime has a dedicated release with a pre-packaged zip:
+
+| Runtime | Release tag | What to do with the zip |
+|---------|-------------|------------------------|
+| Antigravity | [`v1.1.0-antigravity`](https://github.com/Shoko-official/UltraPlan-Skill/releases/tag/v1.1.0-antigravity) | Extract to `~/.gemini/config/skills/ultraplan-engineering/` |
+| Claude Code | [`v1.1.0-claude-code`](https://github.com/Shoko-official/UltraPlan-Skill/releases/tag/v1.1.0-claude-code) | Extract to `~/.claude/skills/ultraplan-engineering/` |
+| Codex | [`v1.1.0-codex`](https://github.com/Shoko-official/UltraPlan-Skill/releases/tag/v1.1.0-codex) | Extract to `~/.codex/skills/ultraplan-engineering/` |
+| Cursor | [`v1.1.0-cursor`](https://github.com/Shoko-official/UltraPlan-Skill/releases/tag/v1.1.0-cursor) | Copy `ultraplan.mdc` to `.cursor/rules/` in your project |
+| Windsurf | [`v1.1.0-windsurf`](https://github.com/Shoko-official/UltraPlan-Skill/releases/tag/v1.1.0-windsurf) | Copy `ultraplan.md` to `.windsurf/rules/` in your project |
+
+### Option 3 - Let your AI self-install
+
+Open `PROMPTS.md` and paste the prompt for your runtime into a chat.
+The AI will clone the repo and install the right adapter automatically.
+
+### Option 4 - Manual (no tools required)
+
+| Runtime | Source path | Target path |
+|---------|-------------|-------------|
+| Antigravity | `adapters/antigravity/` | `~/.gemini/config/skills/ultraplan-engineering/` |
+| Claude Code | `adapters/claude-code/` | `~/.claude/skills/ultraplan-engineering/` |
+| Codex | `adapters/codex/` | `~/.codex/skills/ultraplan-engineering/` |
+| Cursor | `adapters/cursor/ultraplan.mdc` | `.cursor/rules/ultraplan.mdc` (in project) |
+| Windsurf | `adapters/windsurf/ultraplan.md` | `.windsurf/rules/ultraplan.md` (in project) |
 
 ---
 
@@ -109,22 +120,24 @@ Approved. Execute M1 -- implement the auth middleware issue first, TDD approach.
 
 ## Bootstrap script
 
-For Git repositories, run the bootstrap script to set up private local scaffolding:
+For Git repositories, each adapter ships `scripts/bootstrap_ultraplan.py`. Run it after install to create private local scaffolding:
 
 ```bash
-python scripts/bootstrap_ultraplan.py --repo . --profile both
+# From the adapter directory, or anywhere if the script is on PATH:
+python bootstrap_ultraplan.py --repo . --profile claude   # Claude Code
+python bootstrap_ultraplan.py --repo . --profile codex    # Codex
+python bootstrap_ultraplan.py --repo . --profile none     # Antigravity / any other
 ```
-
-Profiles:
 
 | Profile | What it creates |
 |---------|----------------|
-| `both` | Claude Code subagents + Codex instruction artifacts |
-| `claude` | Claude Code subagents only |
-| `codex` | Codex instruction artifacts only |
+| `claude` | `.ultraplan/` + `.claude/agents/ultraplan-*.md` subagents |
+| `codex` | `.ultraplan/` + `.codex/ultraplan/` instruction artifacts |
 | `none` | `.ultraplan/` worklogs and plans only |
 
-Private artifacts are registered in `.git/info/exclude` and are never committed.
+All artifacts are registered in `.git/info/exclude` and are never committed.
+
+Cursor and Windsurf do not use the bootstrap script.
 
 ---
 
