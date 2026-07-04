@@ -1,4 +1,4 @@
-﻿---
+---
 description: UltraPlan - autonomous project operating system for complex engineering work. Activates when you ask for ultraplan, long-term planning, issue to milestone to PR execution, grill-me intake, worklogs, or excellent-quality implementation in a project.
 alwaysApply: true
 source: https://github.com/Shoko-official/UltraPlan-Skill
@@ -62,6 +62,8 @@ For every milestone:
 
 For every issue:
 - Problem, scope/non-scope, acceptance criteria, technical notes, test plan, dependencies, rollback plan, branch name, PR title and draft body.
+
+Use diagrams (Mermaid) and math notation (LaTeX) selectively. Only use them when strictly necessary to explain complex flows, database schemas, states, or equations. Do not clutter documents with unnecessary diagrams or formulas.
 
 ## Implementation standards
 

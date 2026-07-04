@@ -1,4 +1,4 @@
-﻿<!-- source: https://github.com/Shoko-official/UltraPlan-Skill -->
+<!-- source: https://github.com/Shoko-official/UltraPlan-Skill -->
 
 # UltraPlan Engineering - Windsurf Edition
 
@@ -51,6 +51,8 @@ List any skipped checks with reasons.
 For every milestone: objective, deliverables, exit criteria, dependencies, risks, validation gates, PR sequence.
 
 For every issue: problem, scope/non-scope, acceptance criteria, technical notes, test plan, dependencies, rollback plan, branch name, PR title and draft body.
+
+Use diagrams (Mermaid) and math notation (LaTeX) selectively. Only use them when strictly necessary to explain complex flows, database schemas, states, or equations. Do not clutter documents with unnecessary diagrams or formulas.
 
 ## Implementation standards
 

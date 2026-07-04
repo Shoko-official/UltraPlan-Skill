@@ -2,6 +2,11 @@
 
 Use these templates as defaults. Adapt structure when the project has stronger conventions.
 
+## Diagram and Math Guidelines
+- **Use visual aids selectively**: When a workflow, database schema, state machine, or complex dependency needs visualization, use Mermaid diagrams (`mermaid`).
+- **Use math formatting selectively**: When an algorithm, metric, or formula needs precise description, use LaTeX math expressions (`$...$` or `$$...$$`).
+- **Pragmatism first**: Only use Mermaid and LaTeX when strictly necessary to clarify complex logic or architecture. **Do not** add diagrams or math blocks everywhere if a simple prose list or table is clearer.
+
 ## Plan overview
 
 ```markdown

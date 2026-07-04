@@ -1,4 +1,4 @@
-﻿---
+---
 name: ultraplan-engineering
 description: autonomous project operating system for complex engineering work. use when the user asks for ultraplan, long-term engineering planning, claude code orchestration, issue to milestone to mr or pr execution, grill-me intake, subagents, project-specific skills, worklogs, private planning files, automation implementation, or excellent-quality implementation in a git repository. creates and maintains local coordination artifacts through .git/info/exclude, plans reviewable issues and milestones, chooses pragmatic tests and coverage, and drives implementation with explicit quality gates.
 source: https://github.com/Shoko-official/UltraPlan-Skill
@@ -113,6 +113,8 @@ For every issue, define:
 - MR/PR title and draft body.
 
 Prefer smaller reviewable issues over heroic patches. Split issues when the diff would mix unrelated concerns, exceed a reasonable review size, require separate rollout gates, or block different reviewers.
+
+Use diagrams and math notation selectively. When visualizing complex workflows, branching processes, state machines, or data structures, use a Mermaid block (`mermaid`). When describing mathematical algorithms or formulas, use LaTeX math expressions (`$...$` or `$$...$$`). Only use these formatting features when strictly necessary to clarify complex architecture; do not clutter documents with unnecessary diagrams or formulas.
 
 ## Implementation standards
 

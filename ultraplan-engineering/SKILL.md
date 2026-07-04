@@ -120,6 +120,8 @@ For every issue, define:
 
 Prefer smaller reviewable issues over heroic patches. Split issues when the diff would mix unrelated concerns, exceed a reasonable review size, require separate rollout gates, or block different reviewers.
 
+Use diagrams and math notation selectively. When visualizing complex workflows, branching processes, state machines, or data structures, use a Mermaid block (`mermaid`). When describing mathematical algorithms or formulas, use LaTeX math expressions (`$...$` or `$$...$$`). Only use these formatting features when strictly necessary to clarify complex architecture; do not clutter documents with unnecessary diagrams or formulas.
+
 ## Implementation standards
 
 Use English for code, identifiers, filenames, comments, commit messages, branch names, and MR/PR descriptions unless a repository convention clearly differs. Reply to the user in their language.
